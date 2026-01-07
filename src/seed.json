@@ -1,0 +1,1144 @@
+{
+  "months": [
+    "Jan 2026",
+    "Feb 2026",
+    "Mar 2026",
+    "Apr 2026",
+    "May 2026",
+    "Jun 2026",
+    "Jul 2026",
+    "Aug 2026",
+    "Sep 2026",
+    "Oct 2026",
+    "Nov 2026",
+    "Dec 2026"
+  ],
+  "categories": [
+    "Gas & Parking",
+    "Public Transit & Uber",
+    "Groceries",
+    "Restaurants",
+    "Drinks",
+    "Work Coffee & Lunch",
+    "Phone Bill",
+    "Club Memberships",
+    "Tennis Lessons",
+    "Fitness Memberships",
+    "Entertainment",
+    "Shopping",
+    "Beauty",
+    "Travel",
+    "Health",
+    "Gifts"
+  ],
+  "expense": {
+    "Jan 2026": {
+      "Gas & Parking": {
+        "projected": 55.0,
+        "actual": 74.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 120.0,
+        "actual": 25.3,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 50.0,
+        "actual": 56.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 200.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 150.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 40.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 40.25,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 50.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 60.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 200.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 120.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 50.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 30.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Feb 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Mar 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Apr 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "May 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Jun 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Jul 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Aug 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Sep 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Oct 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Nov 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    },
+    "Dec 2026": {
+      "Gas & Parking": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Public Transit & Uber": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Groceries": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Restaurants": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Drinks": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Work Coffee & Lunch": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Phone Bill": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Club Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Tennis Lessons": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Fitness Memberships": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Entertainment": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Shopping": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Beauty": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Travel": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Health": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      },
+      "Gifts": {
+        "projected": 0.0,
+        "actual": 0.0,
+        "notes": ""
+      }
+    }
+  },
+  "income": {
+    "Jan 2026": {
+      "gross_income": 3000.0,
+      "net_pay": 1000.0,
+      "num_pays": 3.0,
+      "refunds": 30.71,
+      "gifts": 100.0,
+      "volleyball": 0.0,
+      "other": 1000.0,
+      "notes": ""
+    },
+    "Feb 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Mar 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Apr 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "May 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Jun 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Jul 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Aug 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Sep 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Oct 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Nov 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    },
+    "Dec 2026": {
+      "gross_income": 0.0,
+      "net_pay": 0.0,
+      "num_pays": 0.0,
+      "refunds": 0.0,
+      "gifts": 0.0,
+      "volleyball": 0.0,
+      "other": 0.0,
+      "notes": ""
+    }
+  },
+  "currency": "CAD",
+  "version": 1
+}
