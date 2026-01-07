@@ -1,4 +1,4 @@
-# KD Budget Dashboard (React)
+# Breadbox
 
 This is a full React + Vite web app version of the KD budget spreadsheet logic.
 It is designed to behave well in Chrome (no expensive full rerenders while typing).
