@@ -1,6 +1,15 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import seed from '../seed.json'
+import { supabase, isSupabaseConfigured } from '../lib/supabase'
+import { 
+  saveBudgetToDatabase, 
+  loadBudgetFromDatabase,
+  updateExpenseInDatabase,
+  updateIncomeInDatabase,
+  addCategoryToDatabase,
+  removeCategoryFromDatabase
+} from '../lib/dbHelpers'
 
 function getCurrentMonth() {
   const now = new Date()
@@ -11,15 +20,12 @@ function getCurrentMonth() {
 
 function getInitialMonth() {
   const currentMonth = getCurrentMonth()
-  // Check if current month exists in the available months
   if (seed.months.includes(currentMonth)) {
     return currentMonth
   }
-  // Otherwise, return the first month or closest future month
   const now = new Date()
   const currentTime = now.getTime()
   
-  // Find the closest month (prefer current or future months)
   for (const month of seed.months) {
     const [monthName, year] = month.split(' ')
     const monthIndex = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].indexOf(monthName)
@@ -28,88 +34,213 @@ function getInitialMonth() {
       return month
     }
   }
-  // Fallback to first month
   return seed.months[0]
 }
 
-export const useBudgetStore = create(persist(
-  (set, get) => ({
-    data: seed,
-    month: getInitialMonth(),
-    tab: 'overview',
+// Helper to save to Supabase (using normalized structure)
+async function saveToSupabase(userId, data) {
+  if (!userId || !isSupabaseConfigured()) return
+  try {
+    await saveBudgetToDatabase(userId, data)
+  } catch (err) {
+    console.error('Error saving to Supabase:', err)
+  }
+}
 
-    setMonth: (month) => set({ month }),
-    setTab: (tab) => set({ tab }),
+// Helper to load from Supabase (using normalized structure)
+async function loadFromSupabase(userId) {
+  if (!userId || !isSupabaseConfigured()) return null
+  try {
+    return await loadBudgetFromDatabase(userId)
+  } catch (err) {
+    console.error('Error loading from Supabase:', err)
+    return null
+  }
+}
 
-    updateExpense: (month, category, patch) => {
-      set((state) => {
-        const next = structuredClone(state.data)
-        next.expense[month][category] = { ...next.expense[month][category], ...patch }
-        return { data: next }
-      })
-    },
+export const useBudgetStore = create(
+  persist(
+    (set, get) => ({
+      data: seed,
+      month: getInitialMonth(),
+      tab: 'overview',
+      loading: false,
+      syncing: false,
 
-    updateIncome: (month, patch) => {
-      set((state) => {
-        const next = structuredClone(state.data)
-        next.income[month] = { ...next.income[month], ...patch }
-        return { data: next }
-      })
-    },
+      // Load data from Supabase
+      loadFromSupabase: async (userId) => {
+        set({ loading: true })
+        const supabaseData = await loadFromSupabase(userId)
+        if (supabaseData) {
+          set({ data: supabaseData, loading: false })
+        } else {
+          set({ loading: false })
+        }
+      },
 
-    addCategory: (categoryName) => {
-      set((state) => {
-        const next = structuredClone(state.data)
-        if (!next.categories.includes(categoryName)) {
-          next.categories.push(categoryName)
-          // Initialize expense data for all months
-          next.months.forEach(month => {
-            if (!next.expense[month]) {
-              next.expense[month] = {}
+      setMonth: async (month) => {
+        set({ month })
+        if (!isSupabaseConfigured()) return
+        const { data } = get()
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) {
+          await saveToSupabase(user.id, data)
+        }
+      },
+
+      setTab: (tab) => set({ tab }),
+
+      updateExpense: async (month, category, patch) => {
+        set((state) => {
+          const next = structuredClone(state.data)
+          next.expense[month][category] = { ...next.expense[month][category], ...patch }
+          return { data: next }
+        })
+        
+        // Use efficient single-row update for logged-in users
+        if (isSupabaseConfigured()) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user) {
+            set({ syncing: true })
+            try {
+              await updateExpenseInDatabase(user.id, month, category, patch)
+            } catch (err) {
+              // Fallback to full save if single update fails
+              const { data } = get()
+              await saveToSupabase(user.id, data)
             }
-            next.expense[month][categoryName] = {
-              projected: 0,
-              actual: 0,
-              notes: ''
+            set({ syncing: false })
+          }
+        }
+      },
+
+      updateIncome: async (month, patch) => {
+        set((state) => {
+          const next = structuredClone(state.data)
+          next.income[month] = { ...next.income[month], ...patch }
+          return { data: next }
+        })
+        
+        // Use efficient single-row update for logged-in users
+        if (isSupabaseConfigured()) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user) {
+            set({ syncing: true })
+            try {
+              await updateIncomeInDatabase(user.id, month, patch)
+            } catch (err) {
+              // Fallback to full save if single update fails
+              const { data } = get()
+              await saveToSupabase(user.id, data)
+            }
+            set({ syncing: false })
+          }
+        }
+      },
+
+      addCategory: async (categoryName) => {
+        set((state) => {
+          const next = structuredClone(state.data)
+          if (!next.categories.includes(categoryName)) {
+            next.categories.push(categoryName)
+            next.months.forEach(month => {
+              if (!next.expense[month]) {
+                next.expense[month] = {}
+              }
+              next.expense[month][categoryName] = {
+                projected: 0,
+                actual: 0,
+                notes: ''
+              }
+            })
+          }
+          return { data: next }
+        })
+        
+        // Use efficient category add for logged-in users
+        if (isSupabaseConfigured()) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user) {
+            set({ syncing: true })
+            try {
+              const { data } = get()
+              await addCategoryToDatabase(user.id, categoryName, data.months)
+            } catch (err) {
+              // Fallback to full save if category add fails
+              const { data } = get()
+              await saveToSupabase(user.id, data)
+            }
+            set({ syncing: false })
+          }
+        }
+      },
+
+      removeCategory: async (categoryName) => {
+        set((state) => {
+          const next = structuredClone(state.data)
+          next.categories = next.categories.filter(c => c !== categoryName)
+          next.months.forEach(month => {
+            if (next.expense[month] && next.expense[month][categoryName]) {
+              delete next.expense[month][categoryName]
             }
           })
-        }
-        return { data: next }
-      })
-    },
-
-    removeCategory: (categoryName) => {
-      set((state) => {
-        const next = structuredClone(state.data)
-        // Remove from categories array
-        next.categories = next.categories.filter(c => c !== categoryName)
-        // Remove from all months' expense data
-        next.months.forEach(month => {
-          if (next.expense[month] && next.expense[month][categoryName]) {
-            delete next.expense[month][categoryName]
-          }
+          return { data: next }
         })
-        return { data: next }
-      })
-    },
+        
+        // Use efficient category remove for logged-in users
+        if (isSupabaseConfigured()) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user) {
+            set({ syncing: true })
+            try {
+              await removeCategoryFromDatabase(user.id, categoryName)
+            } catch (err) {
+              // Fallback to full save if category remove fails
+              const { data } = get()
+              await saveToSupabase(user.id, data)
+            }
+            set({ syncing: false })
+          }
+        }
+      },
 
-    reset: () => set({ data: seed, month: getInitialMonth(), tab: 'overview' }),
+      reset: async () => {
+        set({ data: seed, month: getInitialMonth(), tab: 'overview' })
+        if (isSupabaseConfigured()) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user) {
+            set({ syncing: true })
+            await saveToSupabase(user.id, seed)
+            set({ syncing: false })
+          }
+        }
+      },
 
-    exportJson: () => {
-      const { data } = get()
-      return JSON.stringify(data, null, 2)
-    },
+      exportJson: () => {
+        const { data } = get()
+        return JSON.stringify(data, null, 2)
+      },
 
-    importJson: (jsonText) => {
-      const parsed = JSON.parse(jsonText)
-      if(!parsed || !parsed.months || !parsed.categories || !parsed.expense || !parsed.income){
-        throw new Error('Invalid budget JSON')
+      importJson: async (jsonText) => {
+        const parsed = JSON.parse(jsonText)
+        if(!parsed || !parsed.months || !parsed.categories || !parsed.expense || !parsed.income){
+          throw new Error('Invalid budget JSON')
+        }
+        set({ data: parsed, month: parsed.months?.[0] ?? seed.months[0] })
+        
+        if (isSupabaseConfigured()) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user) {
+            set({ syncing: true })
+            await saveToSupabase(user.id, parsed)
+            set({ syncing: false })
+          }
+        }
       }
-      set({ data: parsed, month: parsed.months?.[0] ?? seed.months[0] })
+    }),
+    {
+      name: 'kd_budget_dashboard_react_v1',
+      version: 1,
     }
-  }),
-  {
-    name: 'kd_budget_dashboard_react_v1',
-    version: 1,
-  }
-))
+  )
+)

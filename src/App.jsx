@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './styles.css'
 import { Tabs } from './components/Tabs'
 import { ConfirmModal } from './components/ConfirmModal'
+import { LoginModal } from './components/LoginModal'
+import { UserMenu } from './components/Auth'
+import { useAuthStore } from './store/useAuthStore'
 import { useBudgetStore } from './store/useBudgetStore'
 import { Overview } from './pages/Overview'
 import { ExpenseTracker } from './pages/ExpenseTracker'
@@ -21,9 +24,11 @@ function downloadText(filename, text){
 }
 
 export default function App(){
-  const data = useBudgetStore(s => s.data)
+  const { user, loading, init } = useAuthStore()
+  const { data, loadFromSupabase } = useBudgetStore()
   const month = useBudgetStore(s => s.month)
   const tab = useBudgetStore(s => s.tab)
+  const syncing = useBudgetStore(s => s.syncing)
   const setMonth = useBudgetStore(s => s.setMonth)
   const setTab = useBudgetStore(s => s.setTab)
   const updateExpense = useBudgetStore(s => s.updateExpense)
@@ -34,6 +39,18 @@ export default function App(){
   const exportJson = useBudgetStore(s => s.exportJson)
   const importJson = useBudgetStore(s => s.importJson)
   const [showResetModal, setShowResetModal] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false)
+
+  useEffect(() => {
+    init()
+  }, [init])
+
+  // Load user data when they log in
+  useEffect(() => {
+    if (user) {
+      loadFromSupabase(user.id)
+    }
+  }, [user, loadFromSupabase])
 
   return (
     <div className="app">
@@ -59,6 +76,17 @@ export default function App(){
           <select className="select" value={month} onChange={(e)=> setMonth(e.target.value)}>
             {data.months.map(m => <option key={m} value={m}>{m}</option>)}
           </select>
+
+          {!user && (
+            <span className="small" style={{ color: 'var(--muted)', fontSize: '12px', fontStyle: 'italic' }}>
+              Guest mode
+            </span>
+          )}
+          {user && syncing && (
+            <span className="small" style={{ color: 'var(--muted)', fontSize: '12px' }}>
+              Syncing...
+            </span>
+          )}
 
           <button className="btn secondary" onClick={() => {
             const text = exportJson()
@@ -91,6 +119,18 @@ export default function App(){
           <button className="btn bad" onClick={() => setShowResetModal(true)}>
             Reset
           </button>
+
+          {user ? (
+            <UserMenu />
+          ) : (
+            <button 
+              className="btn secondary" 
+              onClick={() => setShowLoginModal(true)}
+              style={{ fontSize: '13px' }}
+            >
+              Sign In
+            </button>
+          )}
         </div>
       </div>
 
@@ -110,6 +150,11 @@ export default function App(){
         confirmText="Reset"
         cancelText="Cancel"
         confirmVariant="bad"
+      />
+
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
       />
     </div>
   )
