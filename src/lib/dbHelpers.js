@@ -238,18 +238,30 @@ export async function updateExpenseInDatabase(userId, month, category, patch) {
 
     if (!budget) return
 
-    // Upsert expense
+    // Fetch existing expense entry to preserve values not in patch
+    const { data: existing } = await supabase
+      .from('expenses')
+      .select('projected, actual, notes')
+      .eq('budget_id', budget.id)
+      .eq('month_label', month)
+      .eq('category_name', category)
+      .single()
+
+    // Merge patch with existing values (or defaults if new entry)
+    const merged = {
+      budget_id: budget.id,
+      month_label: month,
+      category_name: category,
+      projected: patch.projected !== undefined ? patch.projected : (existing?.projected ?? 0),
+      actual: patch.actual !== undefined ? patch.actual : (existing?.actual ?? 0),
+      notes: patch.notes !== undefined ? patch.notes : (existing?.notes ?? ''),
+      updated_at: new Date().toISOString()
+    }
+
+    // Upsert expense with merged values
     const { error } = await supabase
       .from('expenses')
-      .upsert({
-        budget_id: budget.id,
-        month_label: month,
-        category_name: category,
-        projected: patch.projected ?? 0,
-        actual: patch.actual ?? 0,
-        notes: patch.notes ?? '',
-        updated_at: new Date().toISOString()
-      }, {
+      .upsert(merged, {
         onConflict: 'budget_id,month_label,category_name'
       })
 
@@ -276,22 +288,33 @@ export async function updateIncomeInDatabase(userId, month, patch) {
 
     if (!budget) return
 
-    // Upsert income
+    // Fetch existing income entry to preserve values not in patch
+    const { data: existing } = await supabase
+      .from('income')
+      .select('gross_income, net_pay, num_pays, refunds, gifts, volleyball, other, notes')
+      .eq('budget_id', budget.id)
+      .eq('month_label', month)
+      .single()
+
+    // Merge patch with existing values (or defaults if new entry)
+    const merged = {
+      budget_id: budget.id,
+      month_label: month,
+      gross_income: patch.gross_income !== undefined ? patch.gross_income : (existing?.gross_income ?? 0),
+      net_pay: patch.net_pay !== undefined ? patch.net_pay : (existing?.net_pay ?? 0),
+      num_pays: patch.num_pays !== undefined ? patch.num_pays : (existing?.num_pays ?? 0),
+      refunds: patch.refunds !== undefined ? patch.refunds : (existing?.refunds ?? 0),
+      gifts: patch.gifts !== undefined ? patch.gifts : (existing?.gifts ?? 0),
+      volleyball: patch.volleyball !== undefined ? patch.volleyball : (existing?.volleyball ?? 0),
+      other: patch.other !== undefined ? patch.other : (existing?.other ?? 0),
+      notes: patch.notes !== undefined ? patch.notes : (existing?.notes ?? ''),
+      updated_at: new Date().toISOString()
+    }
+
+    // Upsert income with merged values
     const { error } = await supabase
       .from('income')
-      .upsert({
-        budget_id: budget.id,
-        month_label: month,
-        gross_income: patch.gross_income ?? 0,
-        net_pay: patch.net_pay ?? 0,
-        num_pays: patch.num_pays ?? 0,
-        refunds: patch.refunds ?? 0,
-        gifts: patch.gifts ?? 0,
-        volleyball: patch.volleyball ?? 0,
-        other: patch.other ?? 0,
-        notes: patch.notes ?? '',
-        updated_at: new Date().toISOString()
-      }, {
+      .upsert(merged, {
         onConflict: 'budget_id,month_label'
       })
 

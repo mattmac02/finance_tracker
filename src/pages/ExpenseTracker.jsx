@@ -3,12 +3,17 @@ import { monthExpenseTotals } from '../lib/calc'
 import { adherence, money, pct, statusFromAdh } from '../lib/format'
 import { NumberInput } from '../components/NumberInput'
 import { ConfirmModal } from '../components/ConfirmModal'
+import seed from '../seed.json'
+
+// Default categories that cannot be removed
+const DEFAULT_CATEGORIES = seed.categories
 
 const Row = memo(function Row({ currency, month, category, row, onUpdate, onRemove }){
   const adh = adherence(row.actual, row.projected)
   const status = statusFromAdh(adh)
   const pillClass = status === 'over budget' ? 'pill bad' : 'pill good'
   const [showModal, setShowModal] = useState(false)
+  const isDefaultCategory = DEFAULT_CATEGORIES.includes(category)
 
   return (
     <>
@@ -16,20 +21,22 @@ const Row = memo(function Row({ currency, month, category, row, onUpdate, onRemo
         <td>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span>{category}</span>
-            <button
-              className="btn secondary"
-              onClick={() => setShowModal(true)}
-              style={{ 
-                padding: '4px 8px', 
-                fontSize: '11px',
-                minWidth: 'auto',
-                height: '24px',
-                lineHeight: '1'
-              }}
-              title="Remove category"
-            >
-              ×
-            </button>
+            {!isDefaultCategory && (
+              <button
+                className="btn secondary"
+                onClick={() => setShowModal(true)}
+                style={{ 
+                  padding: '4px 8px', 
+                  fontSize: '11px',
+                  minWidth: 'auto',
+                  height: '24px',
+                  lineHeight: '1'
+                }}
+                title="Remove category"
+              >
+                ×
+              </button>
+            )}
           </div>
         </td>
       <td className="num">
@@ -163,17 +170,25 @@ export function ExpenseTracker({ data, month, onUpdateExpense, onAddCategory, on
               </tr>
             </thead>
             <tbody>
-              {data.categories.map((c) => (
-                <Row
-                  key={c}
-                  currency={data.currency}
-                  month={month}
-                  category={c}
-                  row={data.expense[month][c]}
-                  onUpdate={onUpdateExpense}
-                  onRemove={onRemoveCategory}
-                />
-              ))}
+              {data.categories.map((c) => {
+                // Ensure expense data exists for this month and category
+                const expenseData = data.expense?.[month]?.[c] || {
+                  projected: 0,
+                  actual: 0,
+                  notes: ''
+                }
+                return (
+                  <Row
+                    key={c}
+                    currency={data.currency}
+                    month={month}
+                    category={c}
+                    row={expenseData}
+                    onUpdate={onUpdateExpense}
+                    onRemove={onRemoveCategory}
+                  />
+                )
+              })}
             </tbody>
             <tfoot>
               <tr>

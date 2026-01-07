@@ -11,6 +11,15 @@ import {
   removeCategoryFromDatabase
 } from '../lib/dbHelpers'
 
+// Default categories that should always be present
+const DEFAULT_CATEGORIES = seed.categories
+
+// Hardcoded months list - must match App.jsx
+const MONTHS = [
+  'Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026', 'Jun 2026',
+  'Jul 2026', 'Aug 2026', 'Sep 2026', 'Oct 2026', 'Nov 2026', 'Dec 2026'
+]
+
 function getCurrentMonth() {
   const now = new Date()
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -20,28 +29,30 @@ function getCurrentMonth() {
 
 function getInitialMonth() {
   const currentMonth = getCurrentMonth()
-  if (seed.months.includes(currentMonth)) {
+  // If current month is in 2026, use it; otherwise use first month of 2026
+  if (MONTHS.includes(currentMonth)) {
     return currentMonth
   }
-  const now = new Date()
-  const currentTime = now.getTime()
-  
-  for (const month of seed.months) {
-    const [monthName, year] = month.split(' ')
-    const monthIndex = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].indexOf(monthName)
-    const monthDate = new Date(parseInt(year), monthIndex, 1)
-    if (monthDate.getTime() >= currentTime) {
-      return month
-    }
+  // Default to current month if it's 2026, otherwise first month
+  const currentYear = new Date().getFullYear()
+  if (currentYear === 2026) {
+    const monthIndex = new Date().getMonth()
+    return MONTHS[monthIndex] || MONTHS[0]
   }
-  return seed.months[0]
+  return MONTHS[0]
 }
 
 // Helper to save to Supabase (using normalized structure)
 async function saveToSupabase(userId, data) {
   if (!userId || !isSupabaseConfigured()) return
   try {
-    await saveBudgetToDatabase(userId, data)
+    // Ensure default categories and hardcoded months are included before saving
+    const dataToSave = {
+      ...data,
+      months: [...MONTHS], // Always use hardcoded months
+      categories: [...new Set([...DEFAULT_CATEGORIES, ...(data.categories || [])])]
+    }
+    await saveBudgetToDatabase(userId, dataToSave)
   } catch (err) {
     console.error('Error saving to Supabase:', err)
   }
@@ -61,7 +72,12 @@ async function loadFromSupabase(userId) {
 export const useBudgetStore = create(
   persist(
     (set, get) => ({
-      data: seed,
+      // Ensure default categories are always in seed data and months match hardcoded list
+      data: {
+        ...seed,
+        months: [...MONTHS], // Always use hardcoded months
+        categories: [...new Set([...DEFAULT_CATEGORIES, ...(seed.categories || [])])]
+      },
       month: getInitialMonth(),
       tab: 'overview',
       loading: false,
@@ -72,19 +88,73 @@ export const useBudgetStore = create(
         set({ loading: true })
         const supabaseData = await loadFromSupabase(userId)
         if (supabaseData) {
-          set({ data: supabaseData, loading: false })
+          const currentMonth = get().month
+          // Always use hardcoded months, but validate current month
+          const validMonth = MONTHS.includes(currentMonth) 
+            ? currentMonth 
+            : MONTHS[0]
+          
+          // Ensure default categories are always present
+          const mergedCategories = [...new Set([...DEFAULT_CATEGORIES, ...(supabaseData.categories || [])])]
+          
+          // Merge data but always use hardcoded months
+          const mergedData = {
+            ...supabaseData,
+            months: [...MONTHS], // Always use hardcoded months
+            categories: mergedCategories
+          }
+          
+          // Ensure all categories have expense entries for all hardcoded months
+          MONTHS.forEach(month => {
+            if (!mergedData.expense[month]) {
+              mergedData.expense[month] = {}
+            }
+            // Initialize expense entries for all categories (default + custom)
+            mergedCategories.forEach(category => {
+              if (!mergedData.expense[month][category]) {
+                mergedData.expense[month][category] = {
+                  projected: 0,
+                  actual: 0,
+                  notes: ''
+                }
+              }
+            })
+            // Initialize income for all months if missing
+            if (!mergedData.income[month]) {
+              mergedData.income[month] = {
+                gross_income: 0,
+                net_pay: 0,
+                num_pays: 0,
+                refunds: 0,
+                gifts: 0,
+                volleyball: 0,
+                other: 0,
+                notes: ''
+              }
+            }
+          })
+          
+          set({ data: mergedData, month: validMonth, loading: false })
         } else {
           set({ loading: false })
         }
       },
 
-      setMonth: async (month) => {
-        set({ month })
-        if (!isSupabaseConfigured()) return
-        const { data } = get()
-        const { data: { user } } = await supabase.auth.getUser()
-        if (user) {
-          await saveToSupabase(user.id, data)
+      setMonth: (month) => {
+        // Validate month exists in hardcoded months list
+        if (MONTHS.includes(month)) {
+          set({ month })
+          // Sync to Supabase in background (non-blocking)
+          if (isSupabaseConfigured()) {
+            supabase.auth.getUser().then(({ data: { user } }) => {
+              if (user) {
+                const { data: currentData } = get()
+                saveToSupabase(user.id, currentData).catch(err => {
+                  console.error('Error syncing month change:', err)
+                })
+              }
+            })
+          }
         }
       },
 
@@ -93,6 +163,20 @@ export const useBudgetStore = create(
       updateExpense: async (month, category, patch) => {
         set((state) => {
           const next = structuredClone(state.data)
+          // Ensure months is always set to hardcoded months
+          next.months = [...MONTHS]
+          // Initialize expense object for month if it doesn't exist
+          if (!next.expense[month]) {
+            next.expense[month] = {}
+          }
+          // Initialize expense entry for category if it doesn't exist
+          if (!next.expense[month][category]) {
+            next.expense[month][category] = {
+              projected: 0,
+              actual: 0,
+              notes: ''
+            }
+          }
           next.expense[month][category] = { ...next.expense[month][category], ...patch }
           return { data: next }
         })
@@ -117,6 +201,21 @@ export const useBudgetStore = create(
       updateIncome: async (month, patch) => {
         set((state) => {
           const next = structuredClone(state.data)
+          // Ensure months is always set to hardcoded months
+          next.months = [...MONTHS]
+          // Initialize income for month if it doesn't exist
+          if (!next.income[month]) {
+            next.income[month] = {
+              gross_income: 0,
+              net_pay: 0,
+              num_pays: 0,
+              refunds: 0,
+              gifts: 0,
+              volleyball: 0,
+              other: 0,
+              notes: ''
+            }
+          }
           next.income[month] = { ...next.income[month], ...patch }
           return { data: next }
         })
@@ -141,9 +240,11 @@ export const useBudgetStore = create(
       addCategory: async (categoryName) => {
         set((state) => {
           const next = structuredClone(state.data)
+          // Ensure months is always set to hardcoded months
+          next.months = [...MONTHS]
           if (!next.categories.includes(categoryName)) {
             next.categories.push(categoryName)
-            next.months.forEach(month => {
+            MONTHS.forEach(month => {
               if (!next.expense[month]) {
                 next.expense[month] = {}
               }
@@ -163,8 +264,7 @@ export const useBudgetStore = create(
           if (user) {
             set({ syncing: true })
             try {
-              const { data } = get()
-              await addCategoryToDatabase(user.id, categoryName, data.months)
+              await addCategoryToDatabase(user.id, categoryName, MONTHS)
             } catch (err) {
               // Fallback to full save if category add fails
               const { data } = get()
@@ -176,10 +276,17 @@ export const useBudgetStore = create(
       },
 
       removeCategory: async (categoryName) => {
+        // Prevent removal of default categories
+        if (DEFAULT_CATEGORIES.includes(categoryName)) {
+          return
+        }
+        
         set((state) => {
           const next = structuredClone(state.data)
+          // Ensure months is always set to hardcoded months
+          next.months = [...MONTHS]
           next.categories = next.categories.filter(c => c !== categoryName)
-          next.months.forEach(month => {
+          MONTHS.forEach(month => {
             if (next.expense[month] && next.expense[month][categoryName]) {
               delete next.expense[month][categoryName]
             }
@@ -205,12 +312,17 @@ export const useBudgetStore = create(
       },
 
       reset: async () => {
-        set({ data: seed, month: getInitialMonth(), tab: 'overview' })
+        const resetData = {
+          ...seed,
+          months: [...MONTHS],
+          categories: [...new Set([...DEFAULT_CATEGORIES, ...(seed.categories || [])])]
+        }
+        set({ data: resetData, month: getInitialMonth(), tab: 'overview' })
         if (isSupabaseConfigured()) {
           const { data: { user } } = await supabase.auth.getUser()
           if (user) {
             set({ syncing: true })
-            await saveToSupabase(user.id, seed)
+            await saveToSupabase(user.id, resetData)
             set({ syncing: false })
           }
         }
@@ -223,16 +335,21 @@ export const useBudgetStore = create(
 
       importJson: async (jsonText) => {
         const parsed = JSON.parse(jsonText)
-        if(!parsed || !parsed.months || !parsed.categories || !parsed.expense || !parsed.income){
+        if(!parsed || !parsed.categories || !parsed.expense || !parsed.income){
           throw new Error('Invalid budget JSON')
         }
-        set({ data: parsed, month: parsed.months?.[0] ?? seed.months[0] })
+        // Always use hardcoded months when importing
+        const importedData = {
+          ...parsed,
+          months: [...MONTHS]
+        }
+        set({ data: importedData, month: MONTHS[0] })
         
         if (isSupabaseConfigured()) {
           const { data: { user } } = await supabase.auth.getUser()
           if (user) {
             set({ syncing: true })
-            await saveToSupabase(user.id, parsed)
+            await saveToSupabase(user.id, importedData)
             set({ syncing: false })
           }
         }

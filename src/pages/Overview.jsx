@@ -19,8 +19,8 @@ export function Overview({ data, month }){
   const a = annualStats(data)
   const m = monthStats(data, month)
 
-  const lineData = a.monthsStats.map(x => ({ month: x.month, surplus: x.surplus }))
-  const barData = data.categories.map(c => ({ category: c, spend: a.catTotals[c] || 0 }))
+  const lineData = (a.monthsStats || []).map(x => ({ month: x.month, surplus: x.surplus }))
+  const barData = (data.categories || []).map(c => ({ category: c, spend: a.catTotals[c] || 0 }))
 
   return (
     <div className="grid">
@@ -51,7 +51,7 @@ export function Overview({ data, month }){
               <XAxis dataKey="month" tick={{ fill:'#94a3b8', fontSize: 12 }} />
               <YAxis tick={{ fill:'#94a3b8', fontSize: 12 }} tickFormatter={(v)=> money(v, data.currency)} />
               <Tooltip content={tooltipMoney(data.currency)} />
-              <Line type="monotone" dataKey="surplus" dot={false} />
+              <Line type="monotone" dataKey="surplus" dot={false} stroke="#D44A3A" strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
         </div>

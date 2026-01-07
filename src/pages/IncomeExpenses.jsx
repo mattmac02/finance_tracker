@@ -4,7 +4,17 @@ import { NumberInput } from '../components/NumberInput'
 import { KpiCard } from '../components/KpiCard'
 
 export function IncomeExpenses({ data, month, onUpdateIncome }){
-  const inc = data.income[month]
+  // Ensure income data exists for this month, initialize with defaults if not
+  const inc = data.income[month] || {
+    gross_income: 0,
+    net_pay: 0,
+    num_pays: 0,
+    refunds: 0,
+    gifts: 0,
+    volleyball: 0,
+    other: 0,
+    notes: ''
+  }
   const stats = monthStats(data, month)
 
   const setField = (key, value) => onUpdateIncome(month, { [key]: value })

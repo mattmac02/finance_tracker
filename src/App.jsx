@@ -23,6 +23,12 @@ function downloadText(filename, text){
   URL.revokeObjectURL(url)
 }
 
+// Hardcoded months list
+const MONTHS = [
+  'Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026', 'Jun 2026',
+  'Jul 2026', 'Aug 2026', 'Sep 2026', 'Oct 2026', 'Nov 2026', 'Dec 2026'
+]
+
 export default function App(){
   const { user, loading, init } = useAuthStore()
   const { data, loadFromSupabase } = useBudgetStore()
@@ -73,8 +79,12 @@ export default function App(){
         </div>
 
         <div className="controls">
-          <select className="select" value={month} onChange={(e)=> setMonth(e.target.value)}>
-            {data.months.map(m => <option key={m} value={m}>{m}</option>)}
+          <select 
+            className="select" 
+            value={month || ''} 
+            onChange={(e)=> setMonth(e.target.value)}
+          >
+            {MONTHS.map(m => <option key={m} value={m}>{m}</option>)}
           </select>
 
           {!user && (
