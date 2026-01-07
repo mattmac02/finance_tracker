@@ -68,6 +68,7 @@ a{color:inherit}
 .logo svg{
   width: 32px;
   height: 32px;
+  color: rgba(255,255,255,0.95);
   position: relative;
   z-index: 1;
 }
