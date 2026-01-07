@@ -437,6 +437,10 @@ td.num{
     transform: translateY(0) scale(1);
   }
 }
+@keyframes spin{
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
+}
 @media (max-width: 900px){
   .kpi{grid-column: span 6;}
 }

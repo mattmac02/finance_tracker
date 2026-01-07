@@ -2,6 +2,7 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, BarChart, 
 import { annualStats, monthStats } from '../lib/calc'
 import { money, pct } from '../lib/format'
 import { KpiCard } from '../components/KpiCard'
+import { AIInsights } from '../components/AIInsights'
 
 function tooltipMoney(currency){
   return ({ active, payload, label }) => {
@@ -24,6 +25,8 @@ export function Overview({ data, month }){
 
   return (
     <div className="grid">
+      <AIInsights data={data} month={month} />
+      
       <div className="card">
         <div className="kpis">
           <KpiCard label="Month Net Income" value={money(m.netIncome, data.currency)} sub="Monthly revenue + extras" />

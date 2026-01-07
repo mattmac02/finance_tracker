@@ -3,6 +3,7 @@ import { monthExpenseTotals } from '../lib/calc'
 import { adherence, money, pct, statusFromAdh } from '../lib/format'
 import { NumberInput } from '../components/NumberInput'
 import { ConfirmModal } from '../components/ConfirmModal'
+import { CategoryInsights } from '../components/CategoryInsights'
 import seed from '../seed.json'
 
 // Default categories that cannot be removed
@@ -99,6 +100,8 @@ export function ExpenseTracker({ data, month, onUpdateExpense, onAddCategory, on
 
   return (
     <div className="grid">
+      <CategoryInsights data={data} month={month} />
+      
       <div className="card">
         <div className="row" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <div className="row">
